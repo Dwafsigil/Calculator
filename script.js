@@ -81,6 +81,13 @@ button.forEach((btn) => {
       return;
     }
 
+    // Decimal
+    if (buttonPressed == ".") {
+      textString += buttonPressed;
+      displayValue(textString);
+      return;
+    }
+
     // Basic Operators
 
     if (
@@ -101,6 +108,7 @@ button.forEach((btn) => {
       commit();
       let lastEntry = textArray.pop();
       textArray.push(1 / lastEntry);
+      displayValue(1 / lastEntry);
       return;
     }
 
@@ -108,6 +116,7 @@ button.forEach((btn) => {
       commit();
       let lastEntry = textArray.pop();
       textArray.push(lastEntry * lastEntry);
+      displayValue(lastEntry * lastEntry);
       return;
     }
 
@@ -115,6 +124,8 @@ button.forEach((btn) => {
       commit();
       let lastEntry = textArray.pop();
       textArray.push(Math.sqrt(lastEntry));
+      displayValue(Math.sqrt(lastEntry));
+
       return;
     }
 
@@ -122,19 +133,38 @@ button.forEach((btn) => {
       commit();
       let lastEntry = textArray.pop();
       textArray.push(lastEntry / 100);
+      displayValue(lastEntry / 100);
       return;
     }
-    // if (
-    //   buttonPressed == "1/x" ||
-    //   buttonPressed == "x^2" ||
-    //   buttonPressed == "√x" ||
-    //   buttonPressed == "%"
-    // ) {
-    //   textArray.push(textString);
-    //   textArray.push(buttonPressed);
-    //   textString = "";
-    //   return;
-    // }
+
+    // Clear Buttons
+
+    if (buttonPressed == "C") {
+      textString = "";
+      textArray = [];
+      displayValue("Reset");
+      return;
+    }
+
+    if (buttonPressed == "CE") {
+      textString = "";
+      displayValue(textString);
+      return;
+    }
+
+    if (buttonPressed == "⌫") {
+      textString = textString.slice(0, -1);
+      displayValue(textString);
+    }
+
+    if (buttonPressed == "±") {
+      if (!textString.includes("-")) {
+        textString = "-" + textString;
+      } else {
+        textString = textString.slice(1);
+      }
+      displayValue(textString);
+    }
 
     if (buttonPressed == "=") {
       // textArray.push(textString);
