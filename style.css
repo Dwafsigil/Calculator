@@ -17,6 +17,12 @@
   width: auto;
   height: 100px;
 } */
+
+.display-math {
+  text-align: right;
+  margin-top: 20px;
+}
+
 .display-text {
   text-align: right;
   border-bottom: 2px solid black;

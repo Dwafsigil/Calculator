@@ -6,7 +6,7 @@ let value;
 let textString = "";
 
 const displayEl = document.querySelector(".display-text");
-
+const displayM = document.querySelector(".display-math");
 // All Buttons
 const button = document.querySelectorAll(".button");
 const percentButton = document.querySelector(".percent-btn");
@@ -33,6 +33,11 @@ const plusMinusButton = document.querySelector(".plus-minus-btn");
 const zeroButton = document.querySelector(".zero-btn");
 const dotButton = document.querySelector(".decimal-btn");
 const equalButton = document.querySelector(".equal-btn");
+
+// Display Math
+const displayMath = () => {
+  displayM.textContent = textArray.join(" ");
+};
 
 //  Display the value
 const displayValue = (v) => {
@@ -76,6 +81,7 @@ button.forEach((btn) => {
 
     // Numbers
     if (!isNaN(buttonPressed)) {
+      displayMath();
       textString += buttonPressed;
       displayValue(textString);
       return;
@@ -98,6 +104,7 @@ button.forEach((btn) => {
     ) {
       commit();
       textArray.push(buttonPressed);
+      displayMath();
       // textString = "";
       return;
     }
@@ -142,6 +149,7 @@ button.forEach((btn) => {
     if (buttonPressed == "C") {
       textString = "";
       textArray = [];
+      displayMath();
       displayValue("Reset");
       return;
     }
@@ -167,13 +175,19 @@ button.forEach((btn) => {
     }
 
     if (buttonPressed == "=") {
-      // textArray.push(textString);
       commit();
-      console.log(textArray);
-      displayValue(solveLogic(textArray));
-      textArray = [];
-      // textString = "";
-      return;
+      if (!isNaN(textArray.at(-1))) {
+        // textArray.push(textString);
+        console.log(textArray);
+        displayValue(solveLogic(textArray));
+        displayMath(textArray);
+
+        textArray = [];
+        // textString = "";
+        return;
+      } else {
+        displayValue("Please enter a valid number");
+      }
     }
   });
 });
